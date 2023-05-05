@@ -17,7 +17,6 @@ class EliminarCurs {
         $eliminarMoviment->bind_param("s",$id_curs);
         $eliminarMoviment->execute();
 
-
         $eliminarReserva=$this->conn->prepare("DELETE FROM reserva WHERE id_curs = ?");
         $eliminarReserva->bind_param("s",$id_curs);
         $eliminarReserva->execute();
