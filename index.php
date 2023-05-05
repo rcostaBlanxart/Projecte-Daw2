@@ -1,0 +1,1 @@
+<?php header("location: Views/html/home_page.php"); ?>
