@@ -13,8 +13,8 @@
   </head>
   <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include ("../../Controller/Navbar/navbar.php") ?>
-
+    <?php include ("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -32,26 +32,31 @@
         <div class="curs col-sm-6 mx-auto">
             <h2 class="titol_curs"></h2>
             <form action="../../Controller/Cursos/ControllerHoraris.php" method="POST">
+
                 <div class="input-group mb-3">
                     <label for="dia" class="m-2">Dia:</label> 
                     <select name="dia" class="rounded">
                         <option value=""></option>
-                        <option value="1">Dilluns</option>
-                        <option value="2">Dimarts</option>
-                        <option value="3">Dimecres</option>
-                        <option value="4">Dijous</option>
-                        <option value="5">Divendres</option>
-                        <option value="6">Disabte</option>
-                        <option value="7">Diumenge</option>
+                        <?php include ("../../Controller/Cursos/ControllerOptionDies.php"); ?>
                     </select>
                 </div>
+
                 <div class="input-group mb-3">
-                    <input type="time" name="hora_inici" required="true" class="form-control" placeholder="hora inici" aria-label="hora inici" aria-describedby="basic-addon2">
+                    <label for="franja" class="m-2">Franja horaria:</label> 
+                    <select name="franja" class="rounded">
+                        <option value=""></option>
+                        <?php include ("../../Controller/Cursos/ControllerOptionFranjes.php"); ?>
+                    </select>
                 </div>
+
                 <div class="input-group mb-3">
-                    <input type="time" required="true" name="hora_fi" class="form-control" placeholder="hora fi" aria-label="hora fi" aria-describedby="basic-addon2">
-                   
+                    <label for="contingut" class="m-2">Franja horaria:</label> 
+                    <select name="contingut" class="rounded">
+                        <option value=""></option>
+                        <?php include ("../../Controller/Cursos/ControllerOptionContinguts.php"); ?>
+                    </select>
                 </div>
+
                 <input type="hidden" value=<?php echo $_GET["id"]?> name="id_curs">
         </div>
             <br>
@@ -61,3 +66,7 @@
     </section>
 </body>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

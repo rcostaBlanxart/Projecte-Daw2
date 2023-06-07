@@ -15,6 +15,10 @@
 </head>
 <body class="container-fluid">
 <!-- img -->
+<?php
+    session_start();
+    if($_SESSION["usuari"]==1){ ?> 
+    
     <main class="row">
 
         <section class="col-md-6" id="panel-left">
@@ -106,8 +110,6 @@
             </div>
         </section>
 
-
-
         <section class="col-md-6" id="panel-right">
            
         <div class="container align-self-center" style="margin-top:-150px; user-select: none;">
@@ -125,3 +127,7 @@
 </body>
 <script src="../js/alta.js"></script>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

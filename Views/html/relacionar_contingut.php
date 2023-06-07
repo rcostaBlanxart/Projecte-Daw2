@@ -15,8 +15,8 @@
 
 <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include("../../Controller/Navbar/navbar.php") ?>
-
+    <?php include("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -51,5 +51,8 @@
         </form>
     </section>
 </body>
-
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

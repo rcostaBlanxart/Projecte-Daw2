@@ -14,11 +14,24 @@
             border: 2px outset;
             padding: 2%;
         }
+        #estatCurs {
+          margin: 0 auto;
+          display: block;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+        }
+        a:hover {
+          color: orange;
+        }
     </style>
   </head>
-  <body>
+  <body onload="filtrarCurs()">
     <!-- NAVBAR & DROPDOWN-->
-    <?php include ("../../Controller/Navbar/navbar.php") ?>
+    <?php include ("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
+
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -27,11 +40,25 @@
             <p class="lead text-muted">Aquesta pàgina proporciona la funcionalitat d'editar/esborrar els cursos existents i crear de nous.</p>
             <p><a class="btn btn-info" href="crear_curs.php">Afegir curs</a></p>
           </div>
+          <?php if($_SESSION["duplicar"]==1){
+            echo "<div class='alert alert-info col-12 text-center' id='msg-error'>El curs s'ha duplicat correctament</div>";
+            $_SESSION["duplicar"] = 0;
+          } ?>
         </div>
     </section>
     <!-- SECTION LLISTA CURSOS -->
-    <?php include ("../../Controller/Cursos/ControllerPanellCursos.php") ?>
+    <select name="estatCurs" id="estatCurs" onchange="filtrarCurs(document.getElementById('estatCurs').value)">
+      <option value=""></option>
+      <?php include ("../../Controller/Cursos/ControllerOptionEstatCurs.php") ?>
+    </select>
+
+    <div id="divCursos"></div>
 
 </body>
 <script src="../js/mostrar_error.js"></script>
+<script src="../js/filtrePanellCursos.js"></script>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

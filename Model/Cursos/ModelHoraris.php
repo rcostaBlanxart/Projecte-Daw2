@@ -9,15 +9,19 @@ class CrearHoraris {
       $this->conn = $conn;
     }
 
-    public function crearHoraris($dia,$hora_inici,$hora_fi,$id_curs){
+    public function crearHoraris($dia,$franja,$contingut,$id_curs){
         $dia = mysqli_real_escape_string($this->conn, $dia);
-        $hora_inici = mysqli_real_escape_string($this->conn, $hora_inici);
-        $hora_fi = mysqli_real_escape_string($this->conn, $hora_fi);
+        $franja = mysqli_real_escape_string($this->conn, $franja);
+        $contingut = mysqli_real_escape_string($this->conn, $contingut);
         $id_curs = mysqli_real_escape_string($this->conn, $id_curs);
 
-        $sql=$this->conn->prepare("INSERT INTO horarios (id_dia_semana,hora_inicio,hora_fin,id_curs) VALUES(?,?,?,?)");
-        $sql->bind_param("ssss",$dia,$hora_inici,$hora_fi,$id_curs);
-        return $sql->execute();
+        $sql=$this->conn->prepare("INSERT INTO horarios (id_dia_semana,id_franja,id_contingut,id_curs) VALUES(?,?,?,?)");
+        $sql->bind_param("ssss",$dia,$franja,$contingut,$id_curs);
+        $sql->execute();
+
+        $sql2=$this->conn->prepare("INSERT INTO curs_contingut (id_curs, id_contingut) VALUES(?,?)");
+        $sql2->bind_param("ii",$id_curs,$contingut);
+        $sql2->execute();
     }
 
 }

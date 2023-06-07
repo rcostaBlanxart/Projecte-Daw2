@@ -1,6 +1,6 @@
--- DROP DATABASE IF exists projecte;
--- CREATE DATABASE projecte;
--- USE projecte;
+DROP DATABASE IF exists projecte;
+CREATE DATABASE projecte;
+USE projecte;
 
 CREATE TABLE tipo_usuari (
     id_tipo_usuari INT NOT NULL PRIMARY KEY,

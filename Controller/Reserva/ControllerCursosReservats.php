@@ -7,10 +7,6 @@ if(isset($_SESSION["email"])){
     $count = $result->num_rows;
 }
 
-
-
-
-
 if (!isset($_SESSION["usuari"])){
     echo '<hr><br>
     <h2>Has de iniciar sessió per poder reservar un curs!</h2>
@@ -36,16 +32,17 @@ else {
         $preu = $curs["preu"];
         $total += $preu;
 
-        $div_cursos .= '     <a class="div_curs" href="home_page.php#cursos">
-        <div class="curs col-sm-6 mx-auto">
-            <h2 class="titol_curs">'.$nombreCurso.'</h2>
-            <h4 class="titol_curs">'.$preu.'€</h4>
-            <form action="../../Controller/Reserva/ControllerEliminarReserva.php" method="POST">
-            <input type="hidden" name="id_reserva" value='.$id_reserva.'>
-            <p><input type="submit" class="btn btn-outline-danger" value="Eliminar Reserva"></p>
-            </form>
-        </div>
-      </a>';
+        $div_cursos .= '
+        <a class="div_curs" href="home_page.php#cursos">
+            <div class="curs col-sm-6 mx-auto">
+                <h2 class="titol_curs">'.$nombreCurso.'</h2>
+                <h4 class="titol_curs">'.$preu.'€</h4>
+                <form action="../../Controller/Reserva/ControllerEliminarReserva.php" method="POST">
+                <input type="hidden" name="id_reserva" value='.$id_reserva.'>
+                <p><input type="submit" class="btn btn-outline-danger" value="Eliminar Reserva"></p>
+                </form>
+            </div>
+        </a>';
     }
     
     $div_cursos .= '<h4>Total: '.$total.'€</h4>';

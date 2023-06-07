@@ -16,7 +16,7 @@ while($contingut=$result->fetch_assoc()) {
     "<section class='py-5 text-center container'>
         <div class='div_continguts col-sm-6 mx-auto'>
             <h2 class='fw-normal'>".$nombreContingut."</h2>
-            <p><a class='btn btn-secondary' href='relacionar_contingut.php?id=".$IdContingut."'>Relacionar contingut a curs</a></p>
+
             <p><a class='btn btn-warning' href='editar_contingut.php?id=".$IdContingut."'>Editar contingut</a></p>
             <form action='../../Controller/Continguts/ControllerEliminarContingut.php' method='POST'>
             <input type='hidden' name='id_contingut' value=".$IdContingut.">

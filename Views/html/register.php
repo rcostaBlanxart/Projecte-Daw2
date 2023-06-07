@@ -17,7 +17,7 @@
 <!-- img -->
     <main class="row">
 
-        <section class="col-md-6" id="panel-left">
+        <section class="col-md-6 bg-light" id="panel-right">
             <div class="container">
                 <div class="row mb-5">
                     <h2 class="col-12 text-center" style="color:black;">Registra't</h2>
@@ -106,7 +106,7 @@
 
 
 
-        <section class="col-md-6" id="panel-right">
+        <section class="col-md-6" id="panel-left" style="background-color: black;">
            
         <div class="container align-self-center" style="margin-top:-150px; user-select: none;">
             <div class="row mt-5">                    

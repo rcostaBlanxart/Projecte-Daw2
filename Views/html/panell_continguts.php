@@ -18,7 +18,9 @@
   </head>
   <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include ("../../Controller/Navbar/navbar.php") ?>
+    <?php include ("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
+    
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -36,3 +38,7 @@
 <script src="../js/mostrar_error.js"></script>
 <script src="../js/mostrar_cursos_relacionats.js"></script>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

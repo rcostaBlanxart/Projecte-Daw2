@@ -1,3 +1,5 @@
+
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +19,9 @@
 <body>
     <!-- NAVBAR -->
     <?php include("../../Controller/Navbar/navbar.php") ?>
-
+    <?php
+    if($_SESSION["usuari"]==1){
+       ?> 
     <!-- MAIN -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -53,8 +57,17 @@
             </div>
         </a>
 
+        <a class="div_curs" href="panell_horari.php">
+            <div class="curs col-sm-6 mx-auto">
+                <h2 class="titol_curs">Panell d'horaris</h2>
+            </div>
+        </a>
     </section>
 
 </body>
 
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

@@ -12,11 +12,10 @@ class EliminarCurs {
   
     public function eliminarCurs($id_curs) {
         $id_curs = mysqli_real_escape_string($this->conn, $id_curs);
-        
+
         $eliminarMoviment=$this->conn->prepare("DELETE FROM moviments WHERE id_curs = ?");
         $eliminarMoviment->bind_param("s",$id_curs);
         $eliminarMoviment->execute();
-
 
         $eliminarReserva=$this->conn->prepare("DELETE FROM reserva WHERE id_curs = ?");
         $eliminarReserva->bind_param("s",$id_curs);

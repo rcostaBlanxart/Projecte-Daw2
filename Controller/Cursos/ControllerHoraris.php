@@ -1,19 +1,19 @@
 <?php
 
     $dia = $_POST["dia"];
-    $hora_inici = $_POST["hora_inici"];
-    $hora_fi = $_POST["hora_fi"];
+    $franja = $_POST["franja"];
+    $contingut = $_POST["contingut"];
     $id_curs = $_POST["id_curs"];
 
   // Verificar si se han enviado los datos del formulario
 
     // Verificar si los campos requeridos tienen datos
-    if(!empty($_POST['dia'])) {
+    if(!empty($_POST['dia']) && !empty($_POST['franja']) && !empty($_POST['contingut'])) {
       // Procesar los datos del formulario
       include ("../../Model/Cursos/ModelHoraris.php");
       $nouHorari=new CrearHoraris($conn);
 
-      $nouHorari->crearHoraris($dia,$hora_inici,$hora_fi,$id_curs);
+      $nouHorari->crearHoraris($dia,$franja,$contingut,$id_curs);
       session_start();
       header("Location: ../../Views/html/horaris.php?id=".$id_curs."");
       $_SESSION["ErrorCrearHoraris"]=0;

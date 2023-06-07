@@ -23,14 +23,14 @@
 
 <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include("../../Controller/Navbar/navbar.php") ?>
-
+    <?php include("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Editar curs</h1>
-                <p class="lead text-muted">Aquesta pàgina proporciona la funcionalitat d'editar nous cursos.</p>
+                <p class="lead text-muted">Aquesta pàgina proporciona la funcionalitat d'editar el curs seleccionat.</p>
                 <?php
                 if (isset($_SESSION["ErrorEditarCurs"]) && $_SESSION["ErrorEditarCurs"] == 1) {
                     echo "<div class='alert alert-danger col-12 text-center' id='msg-error'>NO POTS DEIXAR CAMPS EN BLANC</div>";
@@ -57,6 +57,16 @@
                 </select>
             </div>
 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                </div>
+                <label for="estat_curs" class="m-2">Estat</label> 
+                <select name="estat_curs" class="rounded">
+                <option value=""></option>
+                <?php include ("../../Controller/Cursos/ControllerOptionEstatCurs.php") ?>
+                </select>
+            </div>
+
             <input type='hidden' name='id_curs' value=<?= $_GET['id'] ?>>
 
             <div class='crear_curs'>
@@ -65,7 +75,9 @@
             </div>
         </section>
     </form>
-
 </body>
-
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

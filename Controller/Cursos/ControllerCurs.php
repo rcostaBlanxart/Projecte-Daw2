@@ -2,12 +2,14 @@
 
 include ('../../Model/Cursos/ModelCurs.php');
 include ('../../Model/Reserva/ModelPlaces.php');
+include ('../../Model/Cursos/ModelHorari.php');
 
-
+include ('../../Model/Reserva/ModelReservesCurs.php');
 
 $mostrarPlaces= new MostrarPlaces($conn);
-
 $mostrarCurs = new ModelCurs($conn);
+$mostrarHorari = new ModelHorari($conn);
+$mostrarReserves = new ModelReservesCurs($conn);
 
 $id_curs = $_GET["id"];
 
@@ -27,6 +29,8 @@ $img = $result;
         $nombreCurso = $row["nom_curs"];
         $descripcionCurso = $row["curs_descripcio"];
         $precioHora = $row["preu"];
+        $dataInici = $row["data_inici"];
+        $dataFi = $row["data_fi"];
         $imagenCurso = "../img/".$img["img"][0]["img"]."";
 
         $div_cursos .= "<div class='row g-5 content'>
@@ -38,8 +42,9 @@ $img = $result;
         <article class='blog-post'>
             <h3>Descripció</h3>
             <p>".$descripcionCurso."</p>
+            <p>Duració del curs: ".$dataInici." - ".$dataFi."</p>
         </article> 
-    
+
         <article class='blog-post'>
             <h3>Continguts</h3>
             <p>Los contenidos que se enseñaran en este curso son los siguientes:</p>
@@ -60,11 +65,12 @@ $img = $result;
                 $contingutsDescripcio = $row2["continguts_descripcio"];
                 $horas = $row2["hores"];
                 $nombreProfesor = $row2["nom"];
+                $cognomProfesor = $row2["cognom"];
                 
                 $div_cursos .= "<tr>
                 <td>".$nombreContenido."</td>
                 <td>".$contingutsDescripcio."</td>
-                <td>".$nombreProfesor."</td>
+                <td>".$nombreProfesor." ".$cognomProfesor."</td>
                 <td>".$horas."</td>
                 </tr>";
             }
@@ -73,6 +79,7 @@ $img = $result;
             <p>Precio total del curso: ".$precioHora."€</p>
         </article>   
         </div>
+
 
         <div class='col-md-4'>
             <div class='position-sticky' style='top: 2rem;'>
@@ -112,8 +119,85 @@ $img = $result;
             </div>
         </div>";
     }
-echo $div_cursos;
+    echo $div_cursos; ?>
+    <h2>Horari</h2> <?php
+    // Dies de la setmana
+    $rsDies = $mostrarHorari->listadoDies();
+    $dies = [];
+    while ($dia=$rsDies->fetch_assoc()) {
+        $dies[] = $dia;
+    } 
+    
+    // Franjes horaries
+    $rsFranjes = $mostrarHorari->listadoFranjes();
+    $franjes = [];
+    while ($franja=$rsFranjes->fetch_assoc()) {
+        $franjes[] = $franja;
+    } 
+    
+    // Continguts 
+    $rsContiguts = $mostrarHorari->listadoContinguts($id_curs);
+    $horaris = [];
+    while ($horari=$rsContiguts->fetch_assoc()) {
+        $horaris[] = $horari;
+    } ?>
+    
+    <div class="row mb-3 text-center">
 
+    <!-- Mostrar los días -->
+    <div class="col-md-2 themed-grid-col text-center"></div> <?php
+    foreach ($dies as $dia) { ?>
+        <div class="col-md-2 themed-grid-col text-center" id_dia='<?= $dia["id_dia_semana"] ?>'><?= $dia["dia"] ?></div> <?php
+    } ?>
+    </div> <?php
 
+    // Mostrar las horas y las celdas de la tabla
+    foreach ($franjes as $franja) { ?>
+        <div class="row mb-3 text-center">
+        <div class="col-md-2 themed-grid-col text-center" IDFranja='<?= $franja["id_franja"] ?>'><?= $franja["franja"] ?></div> <?php
+        // Generar celdas para cada día
+        foreach ($dies as $dia) { ?>
+            <div class="col-md-2 themed-grid-col text-center" id_dia='<?= $dia["id_dia_semana"] ?>' id_franja='<?= $franja["franja"] ?>'> <?php
+            foreach ($horaris as $horari) {
+                if($dia["id_dia_semana"] == $horari["id_dia_semana"] && $franja["id_franja"] == $horari["id_franja"]) {
+                    echo $horari["nom_contingut"]."<hr>";
+                }
+            }
+            ?>
+            </div> <?php
+        } ?>
+        </div> <?php
+    } 
 
-?>
+if(isset($_SESSION["usuari"]) && $_SESSION["usuari"] == 1) {
+    $rsReserves = $mostrarReserves->reservesCurs($id_curs);
+    $reserves = [];
+    while($reserva=$rsReserves->fetch_assoc()) {
+        $reserves[] = $reserva;
+    } ?>
+    <h2>Registre d'alumnes</h2>
+    <table id="tablaReserves">
+        <thead>
+            <tr>
+                <th>Nom usuari</th>
+                <th>Nom</th>
+                <th>Cognom</th>
+                <th>DNI</th>
+                <th>email</th>
+                <th>Núm. telèfon</th>
+            </tr>
+        </thead>
+        <tbody> <?php
+            foreach($reserves as $res) { ?>
+                <tr>
+                    <td><?= $res["username"] ?></td>
+                    <td><?= $res["nom"] ?></td>
+                    <td><?= $res["cognom"] ?></td>
+                    <td><?= $res["dni"] ?></td>
+                    <td><?= $res["email"] ?></td>
+                    <td><?= $res["numero_telefono"] ?></td>
+                </tr> <?php
+            } ?>
+        </tbody>
+    </table> <?php
+}

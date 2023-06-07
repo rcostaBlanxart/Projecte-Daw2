@@ -13,7 +13,7 @@ class ModelCursos {
     public function mostrarCursos() {
 
     //Buscar datos del curs
-        $sql = $this->conn->prepare("SELECT * FROM curs JOIN img_cursos WHERE img_cursos.id_curs = curs.id_curs"); 
+        $sql = $this->conn->prepare("SELECT * FROM curs JOIN img_cursos WHERE img_cursos.id_curs = curs.id_curs AND estat = 1"); 
     // Executem la consulta
         $sql->execute();
     //Obtenim el resultat de la consulta

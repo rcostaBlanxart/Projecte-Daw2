@@ -13,7 +13,8 @@
 </head>
     <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include ("../../Controller/Navbar/navbar.php") ?>
+    <?php include ("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?>
 
     <div class="container text-center">
         <div class="row py-lg-5">
@@ -44,3 +45,7 @@
     <script src="../js/pujar_img.js"></script>
 </body>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>

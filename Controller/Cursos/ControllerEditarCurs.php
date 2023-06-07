@@ -2,7 +2,7 @@
   // Verificar si se han enviado los datos del formulario
     // Verificar si los campos requeridos tienen datos
     $IDCurs = $_POST["id_curs"];
-        if(!empty($_POST["id_curs"] && $_POST['nom_curs']) && !empty($_POST['curs_descripcio']) && !empty($_POST['preu']) && !empty($_POST['data_inici']) && !empty($_POST['data_fi']) && !empty($_POST['placesDisponibles']) && !empty($_POST['id_professor'])) {
+        if(!empty($_POST["id_curs"] && $_POST['nom_curs']) && !empty($_POST['curs_descripcio']) && !empty($_POST['preu']) && !empty($_POST['data_inici']) && !empty($_POST['data_fi']) && !empty($_POST["estat_curs"]) && !empty($_POST['placesDisponibles']) && !empty($_POST['id_professor'])) {
           // Procesar los datos del formulario
           include ('../../Model/Cursos/ModelEditarCurs.php');
             $nouCurs=new ModelEditarCurs($conn);
@@ -11,12 +11,13 @@
             $dataInici = $_POST["data_inici"];
             $dataFi = $_POST["data_fi"];
             $preu = $_POST["preu"];
+            $estat = $_POST["estat_curs"];
             $placesDisponibles = $_POST["placesDisponibles"];
             $id_professor = $_POST["id_professor"];
     
-            $id_curs=$nouCurs->editarCurs($nomCurs,$descripcio,$dataInici,$dataFi,$id_professor,$preu,$placesDisponibles,$IDCurs);
+            $id_curs=$nouCurs->editarCurs($nomCurs,$descripcio,$dataInici,$dataFi,$id_professor,$preu,$estat,$placesDisponibles,$IDCurs);
             //   header("Location: ../../Views/html/relacionar_Curs.php?id=".$id_Curs."");
-            header("Location: ../../Views/html/update_img.php?id=".$IDCurs."");
+            header("Location: ../../Views/html/horaris.php?id=".$IDCurs."");
             session_start();
             $_SESSION["ErrorEditarCurs"]=0;
         } else {

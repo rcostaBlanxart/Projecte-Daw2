@@ -27,3 +27,11 @@
 #plDispo::selection{
   background: black;
 }
+
+#tablaReserves {
+  margin: 15px;
+}
+
+#tablaReserves tr td {
+  padding: 0 0 10px 0;
+}

@@ -20,8 +20,9 @@
   </head>
   <body>
     <!-- NAVBAR & DROPDOWN-->
-    <?php include ("../../Controller/Navbar/navbar.php") ?>
-
+    <?php include ("../../Controller/Navbar/navbar.php");
+    if($_SESSION["usuari"]==1){ ?> 
+    
     <!-- HEADER -->
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -60,7 +61,6 @@
         </div>
       </div>
 
-
       <div class="input-group mb-3">
         <div class="input-group-prepend">
         </div>
@@ -84,11 +84,21 @@
         </div>
       </div>
 
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        </div>
+        <label for="estat_curs" class="m-2">Estat</label> 
+        <select name="estat_curs" class="rounded">
+          <option value=""></option>
+          <?php include ("../../Controller/Cursos/ControllerOptionEstatCurs.php") ?>
+        </select>
+      </div>
+
       <div class="input-group">
           <div class="input-group-prepend">
           <span class="input-group-text">Descripció del curs</span>
           </div>
-          <input class="form-control" type="text" name="descripcio" aria-label="With textarea"></input>
+          <textarea class="form-control" type="text" name="descripcio" aria-label="With textarea"></textarea>
       </div>
       <div class="crear_curs">
           <p><input type="submit" class="btn btn-warning" value="Crear curs"></p>
@@ -97,3 +107,7 @@
     </form>
 </body>
 </html>
+<?php
+} else {
+    header("location: 404.php");
+} ?>
