@@ -28,7 +28,7 @@
           <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Crear contingut</h1>
             <p class="lead text-muted">Aquesta pàgina proporciona la funcionalitat de crear nous continguts.</p>
-            <?php session_start();
+            <?php
               if(isset($_SESSION["ErrorCrearContingut"]) && $_SESSION["ErrorCrearContingut"] == 1){
                   echo "<div class='alert alert-danger col-12 text-center' id='msg-error'>NO POTS DEIXAR CAMPS EN BLANC</div>";
                   $_SESSION["ErrorCrearContingut"] = 0;
